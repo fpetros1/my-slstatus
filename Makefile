@@ -29,13 +29,16 @@ COM =\
 	components/volume\
 	components/wifi
 
-all: slstatus
+all: clean-config slstatus
 
 $(COM:=.o): config.mk $(REQ:=.h)
 slstatus.o: slstatus.c slstatus.h arg.h config.h config.mk $(REQ:=.h)
 
 .c.o:
 	$(CC) -o $@ -c $(CPPFLAGS) $(CFLAGS) $<
+
+clean-config:
+	rm -f config.h
 
 config.h:
 	cp config.def.h $@
